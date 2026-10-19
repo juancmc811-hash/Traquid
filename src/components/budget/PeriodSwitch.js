@@ -5,7 +5,7 @@ import S from "../../theme/styles";
 import { Text, View } from "react-native";
 import { useTraquid } from "../../context/TraquidContext";
 
-function PeriodSwitch() {
+function PeriodSwitch({ highContrast = false }) {
   const { setState, state } = useTraquid(["setState", "state"]);
   return (
     <View style={S.segment}>
@@ -21,7 +21,11 @@ function PeriodSwitch() {
           style={[S.segmentItem, state.mode === id && S.segmentActive]}
         >
           <Text
-            style={[S.segmentText, state.mode === id && { color: C.green }]}
+            style={[
+              S.segmentText,
+              highContrast && { color: C.muted },
+              state.mode === id && { color: C.green },
+            ]}
           >
             {label}
           </Text>

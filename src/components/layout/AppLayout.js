@@ -48,7 +48,12 @@ function AppLayout() {
         pointerEvents="none"
         style={[
           StyleSheet.absoluteFill,
-          { backgroundColor: "rgba(244,245,239,0.16)" },
+          {
+            backgroundColor:
+              page === "home"
+                ? "rgba(244,245,239,0.88)"
+                : "rgba(244,245,239,0.16)",
+          },
         ]}
       />
       <StatusBar style="dark" hidden={Platform.OS === "android"} />

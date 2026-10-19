@@ -43,6 +43,20 @@ export function riskColor(used) {
         ? "#B69B3C"
         : "#367759";
 }
+// Presentation classification only; summary remains the source of all amounts.
+export function financialPace(r) {
+  if (r.budget <= 0) return { status: "unset", ratio: null };
+  const expected = r.expectedSpent;
+  const ratio = expected > 0 ? r.spent / expected : r.spent > 0 ? Infinity : 0;
+  // Exhaustion must never receive a reassuring label, including the last day.
+  const status =
+    r.remaining <= 0 || r.overspend > 0
+      ? "above"
+      : ratio >= 0.9
+        ? "near"
+        : "within";
+  return { status, ratio };
+}
 export function summary(state, date = new Date()) {
   const bounds = periodBounds(state.mode, date);
   const budget = state.budgets[`${state.mode}:${bounds.start}`] || 0;
@@ -61,9 +75,10 @@ export function summary(state, date = new Date()) {
   const remaining = budget - spent;
   const allowance = budget ? Math.floor(Math.max(0, remaining) / daysLeft) : 0;
   const elapsed = bounds.days - daysLeft + 1;
-  const overspend = budget
-    ? Math.max(0, spent - Math.floor((budget * elapsed) / bounds.days))
+  const expectedSpent = budget
+    ? Math.floor((budget * elapsed) / bounds.days)
     : 0;
+  const overspend = budget ? Math.max(0, spent - expectedSpent) : 0;
   return {
     ...bounds,
     budget,
@@ -74,6 +89,7 @@ export function summary(state, date = new Date()) {
     todaySpent,
     allowance,
     overspend,
+    expectedSpent,
     used: budget ? (spent / budget) * 100 : 0,
   };
 }

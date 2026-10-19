@@ -8,7 +8,7 @@ import { catFor } from "../../config/categories";
 import { money } from "../../utils/finance.mjs";
 import { niceDate } from "../../utils/formatters";
 
-const ExpenseRow = React.memo(({ e, onEdit, today }) => {
+const ExpenseRow = React.memo(({ e, onEdit, today, stacked = false }) => {
   const c = catFor(e.category);
   return (
     <SwipeExpense onEdit={() => onEdit(e)}>
@@ -35,14 +35,25 @@ const ExpenseRow = React.memo(({ e, onEdit, today }) => {
               ? "Hoy"
               : niceDate(e.date, { day: "numeric", month: "short" })}
           </Text>
+          {stacked && (
+            <Text
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              style={S.expenseAmount}
+            >
+              −{money(e.cents)}
+            </Text>
+          )}
         </View>
-        <Text
-          numberOfLines={1}
-          adjustsFontSizeToFit
-          style={[S.expenseAmount, { maxWidth: "42%" }]}
-        >
-          −{money(e.cents)}
-        </Text>
+        {!stacked && (
+          <Text
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            style={[S.expenseAmount, { maxWidth: "42%" }]}
+          >
+            −{money(e.cents)}
+          </Text>
+        )}
         <Icon name="chevron-forward" size={15} color="#A0ADA3" />
       </Pressable>
     </SwipeExpense>

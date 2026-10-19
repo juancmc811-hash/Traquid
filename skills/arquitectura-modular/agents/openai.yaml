@@ -1,0 +1,5 @@
+interface:
+  display_name: "Arquitectura modular"
+  short_description: "Organiza código en módulos claros y mantenibles"
+policy:
+  allow_implicit_invocation: true

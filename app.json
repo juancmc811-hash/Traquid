@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "Traquid",
+    "slug": "traquid",
+    "version": "1.0.3",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "icon": "./assets/app-icon.png",
+    "androidStatusBar": { "hidden": true },
+    "androidNavigationBar": { "visible": "sticky-immersive" },
+    "ios": { "supportsTablet": true, "bundleIdentifier": "com.traquid.app" },
+    "android": { "package": "com.traquid.app", "versionCode": 4 },
+    "web": {
+      "bundler": "metro",
+      "name": "Traquid",
+      "favicon": "./assets/app-icon.png"
+    }
+  }
+}

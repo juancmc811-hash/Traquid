@@ -1,0 +1,27 @@
+node_modules/
+.expo/
+.npm-cache/
+dist/
+tmp/
+.expo-home/
+.dotslash/
+dist-native/
+.gradle-build/
+
+# Generated outputs
+output/
+*.apk
+*.aab
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.jks
+*.keystore
+
+# Kotlin compiler cache
+android/.kotlin/
+
